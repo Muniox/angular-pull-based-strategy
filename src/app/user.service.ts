@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {User} from "./model/user.model";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 const baseUrl = 'https://jsonplaceholder.typicode.com/users';
@@ -9,13 +9,14 @@ const baseUrl = 'https://jsonplaceholder.typicode.com/users';
   providedIn: 'root'
 })
 export class UserService {
-  user: User;
+  private userSubject = new BehaviorSubject<User>(null);
+  readonly user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
   loadUser(id: string) {
     this.getUser(id).subscribe(user => {
-      this.user = user;
+      this.userSubject.next(user)
     })
   }
 

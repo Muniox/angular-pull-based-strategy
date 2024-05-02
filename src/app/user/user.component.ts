@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {UserService} from "../user.service";
 import {User} from "../model/user.model";
 
@@ -16,23 +16,23 @@ export class UserComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService) {}
 
-  get user(): User {
-    return this.userService.user;
+  get user(): Observable<User> {
+    return this.userService.user$;
   }
 
   ngOnInit(): void {
     this.sub.add(
       this.userControl.valueChanges.subscribe(v => {
-        return this.loadUser(v)
+        return this.userService.loadUser(v)
       })
     )
   }
 
+  // private loadUser(id: string) {
+  //   this.userService.loadUser(id)
+  // }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
-  }
-
-  private loadUser(id: string) {
-    this.userService.loadUser(id)
   }
 }
