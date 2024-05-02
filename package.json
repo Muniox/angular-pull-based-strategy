@@ -1,5 +1,5 @@
 {
-  "name": "angular-pull-based-strategy",
+  "name": "angular-push-based-strategy",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
