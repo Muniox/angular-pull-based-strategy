@@ -5,6 +5,10 @@
   </option>
 </select>
 
-<pre class="pres" *ngIf="user">
+<pre class="pres" *ngIf="(user$ | async) as user">
   {{ user | json }}
 </pre>
+
+<!--<pre class="pres" *ngIf="(user | async) as user">-->
+<!--  {{ user | json }}-->
+<!--</pre>-->

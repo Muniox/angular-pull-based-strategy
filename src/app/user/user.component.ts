@@ -13,12 +13,13 @@ export class UserComponent implements OnInit, OnDestroy {
   userIds = Array.from({length: 10}, (_, i) => i + 1);
   userControl = new FormControl();
   private sub = new Subscription();
+  readonly user$ = this.userService.user$;
 
   constructor(private userService: UserService) {}
 
-  get user(): Observable<User> {
-    return this.userService.user$;
-  }
+  // get user(): Observable<User> {
+  //   return this.userService.user$;
+  // }
 
   ngOnInit(): void {
     this.sub.add(
